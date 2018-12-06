@@ -4,10 +4,6 @@ var DeclarationBundlerPlugin = /** @class */ (function () {
         if (options === void 0) { options = {}; }
         this.out = options.out ? options.out : './build/';
         this.excludedReferences = options.excludedReferences ? options.excludedReferences : undefined;
-        if (!options.moduleName) {
-            throw new Error('please set a moduleName if you use mode:internal. new DacoreWebpackPlugin({mode:\'internal\',moduleName:...})');
-        }
-        this.moduleName = options.moduleName;
     }
     DeclarationBundlerPlugin.prototype.apply = function (compiler) {
         var _this = this;
@@ -69,8 +65,7 @@ var DeclarationBundlerPlugin = /** @class */ (function () {
             }
             declarations += lines.join("\n") + "\n\n";
         }
-        var output = "declare module " + this.moduleName + "\n{\n" + declarations + "}";
-        return output;
+        return declarations;
     };
     return DeclarationBundlerPlugin;
 }());

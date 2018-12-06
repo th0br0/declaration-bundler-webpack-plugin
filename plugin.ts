@@ -1,7 +1,6 @@
 class DeclarationBundlerPlugin
 {
 	out:string;
-	moduleName:string;
 	mode:string;
 	excludedReferences:string[];
 
@@ -9,12 +8,6 @@ class DeclarationBundlerPlugin
 	{
 		this.out = options.out ? options.out : './build/';
 		this.excludedReferences = options.excludedReferences ? options.excludedReferences : undefined;
-
-		if(!options.moduleName)
-		{
-			throw new Error('please set a moduleName if you use mode:internal. new DacoreWebpackPlugin({mode:\'internal\',moduleName:...})');
-		}
-		this.moduleName = options.moduleName;
 	}
 
 	apply(compiler)
@@ -101,8 +94,7 @@ class DeclarationBundlerPlugin
 			declarations += lines.join("\n") + "\n\n";
 		}
 
-		var output = "declare module "+this.moduleName+"\n{\n" + declarations + "}";
-		return output;
+		return declarations;
 	}
 
 }
